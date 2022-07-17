@@ -28,6 +28,7 @@ class File:
         self.copyto = ""
         self.file_type = ""
         self.is_include_file = False
+        self.is_library_file = False
         self.include_path = None
         self.logical_name = ""
         if type(tree) is dict:
@@ -35,6 +36,7 @@ class File:
                 self.name = StringWithUseFlags(os.path.expandvars(k))
                 self.file_type = v.get("file_type", "")
                 self.is_include_file = v.get("is_include_file", False)
+                self.is_library_file = v.get("is_library_file", False)
                 self.include_path = v.get("include_path")
                 self.copyto = v.get("copyto", "")
                 self.logical_name = v.get("logical_name", "")
