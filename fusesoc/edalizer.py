@@ -7,6 +7,7 @@ import logging
 import os
 import shutil
 import tempfile
+import re
 
 from fusesoc import utils
 from fusesoc.coremanager import DependencyError
@@ -159,7 +160,12 @@ class Edalizer:
             else:
                 files_root = core.files_root
 
-            rel_root = os.path.relpath(files_root, self.work_root)
+            # rel_root = os.path.relpath(files_root, self.work_root)
+            rel_root = os.path.abspath(files_root)
+            myprjroot = os.environ.get ("PROJECT_ROOT")
+            myregex = re.escape(myprjroot)
+            rel_root = re.sub(myregex, "$PROJECT_ROOT", rel_root)
+
 
             # Extract parameters
             snippet["parameters"] = core.get_parameters(_flags, parameters)
